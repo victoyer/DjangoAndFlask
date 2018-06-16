@@ -1,0 +1,61 @@
+{% extends 'base_goods.html' %}
+{% load static %}
+{% block body %}
+    <div class="navbar_con">
+        <div class="navbar clearfix">
+            <div class="subnav_con fl">
+                <h1>全部商品分类</h1>
+                <span></span>
+                <ul class="subnav">
+                    <li><a href="/goods/list4_1_1/" class="fruit">新鲜水果</a></li>
+                    <li><a href="/goods/list5_1_1/" class="seafood">海鲜水产</a></li>
+                    <li><a href="/goods/list6_1_1/" class="meet">猪牛羊肉</a></li>
+                    <li><a href="/goods/list7_1_1/" class="egg">禽类蛋品</a></li>
+                    <li><a href="/goods/list8_1_1/" class="vegetables">新鲜蔬菜</a></li>
+                    <li><a href="/goods/list9_1_1/" class="ice">速冻食品</a></li>
+                </ul>
+            </div>
+            <ul class="navlist fl">
+                <li><a href="{% url 'goods:index' %}">首页</a></li>
+                <li class="interval">|</li>
+                <li><a href="#">手机生鲜</a></li>
+                <li class="interval">|</li>
+                <li><a href="#">抽奖</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="breadcrumb">
+        {#        <a href="#">全部分类</a>#}
+        {#        <span>></span>#}
+        {#        <a href="#">{{ title }}</a>#}
+        {#        <span>></span>#}
+        {#        <a href="#">商品详情</a>#}
+        全部分类 > {{ title }}
+        {% if id %}
+            > 商品详情
+        {% endif %}
+    </div>
+
+    {#    <div class="main_wrap clearfix">#}
+    {#        <div class="l_wrap fl clearfix">#}
+    {#            <div class="new_goods">#}
+    {#                <h3>新品推荐</h3>#}
+    {#                <ul>#}
+    {#                    <li>#}
+    {#                        <a href="#"><img src="{% static 'images/goods/goods001.jpg' %}"></a>#}
+    {#                        <h4><a href="#">进口柠檬</a></h4>#}
+    {#                        <div class="prize">￥3.90</div>#}
+    {#                    </li>#}
+    {#                    <li>#}
+    {#                        <a href="#"><img src="{% static 'images/goods/goods002.jpg' %}"></a>#}
+    {#                        <h4><a href="#">玫瑰香葡萄</a></h4>#}
+    {#                        <div class="prize">￥16.80</div>#}
+    {#                    </li>#}
+    {#                </ul>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </div>>#}
+    {% block context %}
+    {% endblock context %}
+{% endblock body %}
