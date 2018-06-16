@@ -1,0 +1,93 @@
+{% extends 'base/base_user.html' %}
+
+
+{% block content %}
+<!-- Popup -->
+<div id="Popup">
+
+    <!-- SubPopup -->
+    <div id="SubPopup">
+        <script type="text/javascript">
+            $(function () {
+                $(".select").each(function () {
+                    var s = $(this);
+                    var z = parseInt(s.css("z-index"));
+                    var dt = $(this).children("dt");
+                    var dd = $(this).children("dd");
+                    var _show = function () {
+                        dd.slideDown(200);
+                        dt.addClass("cur");
+                        s.css("z-index", z + 1);
+                    };
+                    var _hide = function () {
+                        dd.slideUp(200);
+                        dt.removeClass("cur");
+                        s.css("z-index", z);
+                    };
+                    dt.click(function () {
+                        dd.is(":hidden") ? _show() : _hide();
+                    });
+                    dd.find("a").click(function () {
+                        dt.html($(this).html());
+                        _hide();
+                    });
+                    $("body").click(function (i) {
+                        !$(i.target).parents(".select").first().is(s) ? _hide() : "";
+                    });
+                })
+            })
+        </script>
+        <div class="form_boxC">
+
+            <form action="/admin/add_edit/" method="post">
+                <table cellpadding="0" cellspacing="0">
+                    <tr>
+                        <th>用户名 <span class="f_cB">*</span></th>
+                        <td>
+                            <div class="txtbox floatL" style="width:100px;"><input name="username" type="text" size="5"
+                                                                                   ></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>密码 <span class="f_cB">*</span></th>
+                        <td><!-- selectbox -->
+                            <div class="txtbox floatL" style="width:222px;"><input name="password1" type="password">
+                            </div>
+                            <!-- /selectbox --></td>
+                    </tr>
+
+                    <tr>
+                        <th>确认密码 <span class="f_cB">*</span></th>
+                        <td><!-- selectbox -->
+                            <div class="txtbox floatL" style="width:222px;"><input name="password2" type="password">
+                            </div>
+                            <!-- /selectbox --></td>
+                    </tr>
+
+
+                    <tr>
+                        <th>赋予权限 <span class="f_cB">*</span></th>
+                        <td><!-- selectbox -->
+                            <!--<div class="txtbox floatL" style="width:200px;"><input name="password" type="password">-->
+                                <select name="r_id" style="width: 100px; height: 30px">
+                                    {%for r in roles%}
+                                    <option value="{{r.r_id}}">{{r.r_name}}</option>
+                                    {%endfor%}
+
+                                </select>
+                            <!--</div>-->
+                            <!-- /selectbox --></td>
+                    </tr>
+
+
+                </table>
+
+                <div id="BtmBtn">
+                    <div class="btn_box floatR"><input name="" type="submit" value="提交"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

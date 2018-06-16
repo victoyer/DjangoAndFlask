@@ -1,0 +1,29 @@
+{% extends 'base/base_user.html' %}
+
+
+{% block content %}
+
+
+<!-- MainForm -->
+<div id="MainForm">
+    <div class="form_boxA">
+        <h2>角色列表</h2>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th>序号</th>
+                <th>角色名称</th>
+                <th>操作</th>
+            </tr>
+            {%for r in roles%}
+            <tr>
+                <td>{{r.r_id}}</td>
+                <td>{{r.r_name}}</td>
+                <td><a href="p2.html">编辑|删除</a></td>
+            </tr>
+            {%endfor%}
+        </table>
+    </div>
+
+</div>
+
+{% endblock %}
