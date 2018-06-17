@@ -33,7 +33,7 @@
                 <span>|</span>
                 <a href="{% url 'user:usercenterinfo' %}">用户中心</a>
                 <span>|</span>
-                <a href="{% url 'goods:cart' %}">我的购物车</a>
+                <a href="{% url 'cart:index' %}">我的购物车</a>
                 <span>|</span>
                 <a href="{% url 'user:usercenterorder' %}">我的订单</a>
             </div>
@@ -48,7 +48,7 @@
             <input type="button" class="input_btn fr" name="" value="搜索">
         </div>
         <div class="guest_cart fr">
-            <a href="{% url 'goods:cart' %}" class="cart_name fl">我的购物车</a>
+            <a href="{% url 'cart:index' %}" class="cart_name fl">我的购物车</a>
             <div class="goods_count fl" id="show_count">1</div>
         </div>
     </div>
@@ -85,5 +85,6 @@
     <script type="text/javascript" src="{% static 'js/jquery-ui.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/jquery.cookie.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/slide.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/register.js' %}"></script>
 {% endblock JS %}
 </html>

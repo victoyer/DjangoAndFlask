@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^user/', include('df_user.urls', namespace='user')),
     url(r'^goods/', include('df_goods.urls', namespace='goods')),
+    url(r'^cart/', include('df_cart.urls', namespace='cart')),
     url(r'^static/(?P<path>.*)$', serve, {"document_root": settings.STATICFILES_DIRS[0]}),
     url(r'', views.index)
 ]

@@ -62,7 +62,7 @@ $(function () {
                     }
                 },
                 error: function (data) {
-                    alert('error')
+                    location.href='user/register/'
                 },
             });
         }

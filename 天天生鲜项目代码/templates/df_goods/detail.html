@@ -90,7 +90,8 @@
                         });
 
                     });
-            })
+            });
+
         </script>
 
 
@@ -149,6 +150,12 @@
                         {#alert(total);#}
                         $('.total').html('总价：<em>' + total.toFixed(2) + '元</em>')
                 })
+            });
+
+            num = parseInt($('.num_show').val());
+            $.get('/cart/addcart{{ id }}_/' + num + '/', function (data) {
+                alert(data.count)
+                $('#show_count').text(data)
             })
 
 
