@@ -1,0 +1,127 @@
+{% extends 'base/base_user.html' %}
+
+{% block title %}
+爱家-客户订单
+{% endblock %}
+
+{% block CSS %}
+
+<link href="/static/css/ihome/main.css" rel="stylesheet">
+<link href="/static/css/ihome/orders.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="top-bar">
+        <div class="nav-bar">
+            <h3 class="page-title">客户订单</h3>
+            <a class="nav-btn fl" href="{{url_for('user.my')}}"><span><i class="fa fa-angle-left fa-2x"></i></span></a>
+        </div>
+    </div>
+    <div class="orders-con">
+        <ul class="orders-list">
+
+        </ul>
+        {% raw %}
+        <script type="text/html" id="templates_infos">
+            {{if orders}}
+            {{ each orders as order }}
+            <li order-id={{order.order_id}}>
+                <div class="order-title">
+                    <h3>订单编号：{{order.order_id}}</h3>
+
+                    {{if "WAIT_ACCEPT" == order.status}}
+
+                    <div class="fr order-operate">
+                        <button type="button" class="btn btn-success order-accept" data-toggle="modal"
+                                data-target="#accept-modal">接单
+                        </button>
+                        <button type="button" class="btn btn-danger order-reject" data-toggle="modal"
+                                data-target="#reject-modal">拒单
+                        </button>
+                    </div>
+
+                    {{/if}}
+
+                </div>
+                <div class="order-content">
+                    <img src="/static/{{order.image}}">
+                    <div class="order-text">
+                        <h3>{{order.house_title}}</h3>
+                        <ul>
+                            <li>创建时间：{{order.create_date}}</li>
+                            <li>入住日期：{{order.begin_date}}</li>
+                            <li>离开日期：{{order.end_date}}</li>
+                            <li>合计金额：￥{{order.amount}}(共{{order.days}}晚)</li>
+                            <li>订单状态：
+                                <span>
+                                        {{if "WAIT_ACCEPT" == order.status}}
+                                            待接单
+                                        {{else if "WAIT_COMMENT" == order.status}}
+                                            待评价
+                                        {{else if "COMPLETE" == order.status}}
+                                            已完成
+                                        {{else if "REJECTED" == order.status}}
+                                            已拒单
+                                        {{else if "WAIT_PAYMENT" == order.status}}
+                                            待支付
+                                        {{/if}}
+                                    </span>
+                            </li>
+                            {{if "COMPLETE" == order.status }}
+                            <li>客户评价： 挺好的</li>
+                            {{ /if }}
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            {{/each}}
+            {{/if}}
+        </script>
+        {% endraw %}
+
+        <div class="modal fade" id="accept-modal" tabindex="-1" role="dialog" aria-labelledby="accept-label">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">操作提示</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>您确定接此订单吗？</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary modal-accept">确定接单</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="reject-modal" tabindex="-1" role="dialog" aria-labelledby="reject-label">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">请输入拒接单原因</h4>
+                    </div>
+                    <div class="modal-body">
+                        <textarea class="form-control" rows="3" id="reject-reason" placeholder="此处必须填写原因"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary modal-reject">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p><span><i class="fa fa-copyright"></i></span>爱家租房&nbsp;&nbsp;享受家的温馨</p>
+    </div>
+</div>
+{% endblock %}
+{% block JS %}
+<script src="/static/js/ihome/lorders.js"></script>
+{% endblock %}

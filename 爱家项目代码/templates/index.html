@@ -1,0 +1,144 @@
+{% extends 'base/base_user.html' %}
+
+{% block title %}
+爱家-首页
+{% endblock %}
+
+{% block CSS %}
+<link href="/static/plugins/swiper/css/swiper.min.css" rel="stylesheet">
+<link href="/static/css/ihome/index.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="top-bar">
+        <img class="logo fl" src="/static/images/logo@128x59.png">
+        <div class="register-login fr">
+            <a class="btn top-btn btn-theme" href="{{url_for('user.register')}}">注册</a>
+            <a class="btn top-btn btn-theme" href="{{url_for('user.login')}}">登录</a>
+        </div>
+        <div class="user-info fr">
+            <span>
+                <i class="fa fa-user fa-lg"></i>
+            </span>
+            <a class="user-name" href="{{url_for('user.my')}}"></a>
+            <a class="btn top-btn btn-theme" href="{{url_for('user.logout')}}" id="user_logout">登出</a>
+        </div>
+    </div>
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+
+            <!--<div class="swiper-slide">-->
+            <!--<a href="/detail.html?id=2"><img src="/static/images/home02.jpg"></a>-->
+            <!--<div class="slide-title">房屋标题2</div>-->
+            <!--</div>-->
+            <!--<div class="swiper-slide">-->
+            <!--<a href="/detail.html?id=3"><img src="/static/images/home03.jpg"></a>-->
+            <!--<div class="slide-title">房屋标题3</div>-->
+            <!--</div>-->
+        </div>
+        {% raw %}
+        <script type="text/html" id="index_html">
+            {{if houses}}
+            {{ each houses as house }}
+            <div class="swiper-slide">
+                <a href="/house/detail/?id={{house.id}}"><img src="/static/{{house.images}}" alt=""></a>
+                <div class="slide-title">{{house.title}}</div>
+            </div>
+            {{/each}}
+            {{/if}}
+        </script>
+
+        {% endraw %}
+
+        <div class="swiper-pagination"></div>
+
+    </div>
+    <div class="search-bar">
+        <button class="filter-btn" type="button" data-toggle="modal" data-target="#area-modal"><span class="fl"
+                                                                                                     id="area-btn">选择城区</span><span
+                class="fr"><i class="fa fa-map-marker fa-lg fa-fw"></i></span></button>
+        <button class="filter-btn" type="button" data-toggle="modal" data-target="#start-date-modal"><span class="fl"
+                                                                                                           id="start-date-btn">入住日期</span><span
+                class="fr"><i class="fa fa-calendar fa-lg fa-fw"></i></span></button>
+        <button class="filter-btn end-date" type="button" data-toggle="modal" data-target="#end-date-modal"><span
+                class="fl" id="end-date-btn">离开日期</span><span class="fr"><i
+                class="fa fa-calendar fa-lg fa-fw"></i></span></button>
+        <a class="btn search-btn btn-theme" href="#" onclick="goToSearchPage(this);" area-id="" start-date=""
+           end-date="">搜索</a>
+        <div class="modal fade" id="area-modal" tabindex="-1" role="dialog" aria-labelledby="area-label">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="area-label">选择城区</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="area-list">
+
+                        </div>
+
+                        {% raw %}
+                        <script type="text/html" id="area_infos">
+                            {{if area_list_infos}}
+                            {{ each area_list_infos as area_info }}
+                            <a href="#" area-id="{{area_info.id}}">{{area_info.name}}</a>
+                            {{/each}}
+                            {{/if}}
+                        </script>
+                        {% endraw %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="start-date-modal" tabindex="-1" role="dialog" aria-labelledby="start-date-label">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="start-date-label">入住日期</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="date-select" id="start-date"></div>
+                        <input type="hidden" id="start-date-input">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-theme" onclick="setStartDate();">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="end-date-modal" tabindex="-1" role="dialog" aria-labelledby="end-date-label">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="end-date-label">离开日期</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="date-select" id="end-date"></div>
+                        <input type="hidden" id="end-date-input">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-theme" onclick="setEndDate();">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p><span><i class="fa fa-copyright"></i></span>爱家租房&nbsp;&nbsp;享受家的温馨</p>
+    </div>
+</div>
+
+{% endblock %}
+{% block JS %}
+
+<script src="/static/plugins/swiper/js/swiper.jquery.min.js"></script>
+<script src="/static/js/template.js"></script>
+<script src="/static/js/ihome/index.js"></script>
+{% endblock %}
