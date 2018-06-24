@@ -224,3 +224,11 @@ def sort_search_info():
     elif flag == '3':
         house_infos = [house.to_dict() for house in houses.order_by(House.price.desc())]
         return jsonify({'code': '200', 'msg': house_infos})
+
+
+# 区域名更新
+@aj_order.route('/house_name/', methods=['POST'])
+def house_name():
+    aid = request.args.get('aid')
+    aname = Area.query.filter(Area.id == aid).first().name
+    return jsonify({'code': '200', 'msg': aname})

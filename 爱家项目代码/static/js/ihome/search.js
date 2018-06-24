@@ -163,14 +163,32 @@ $(document).ready(function () {
 
     });
     $(".filter-item-bar>.filter-area").on("click", "li", function (e) {
+
+
+        $.ajax({
+            url: '/order/house_name/',
+            type: 'POST',
+            dataType: 'json',
+            data: {'aid': $(this).attr('area-id')},
+            success: function (data) {
+                alert(123)
+            },
+            error: function (data) {
+
+            }
+        });
+
+
         if (!$(this).hasClass("active")) {
             $(this).addClass("active");
             $(this).siblings("li").removeClass("active");
             $(".filter-title-bar>.filter-title").eq(1).children("span").eq(0).html($(this).html());
 
-            //更新区域ID
+            //更新区域ID\区域名
             var search_path = location.search;
             var aid = search_path.split('&')[0];
+            var aname = search_path.split('&')[1];
+
 
             var new_search_path = search_path.replace(aid, '?aid=' + $(this).attr('area-id'));
 
@@ -181,6 +199,8 @@ $(document).ready(function () {
             $(this).removeClass("active");
             $(".filter-title-bar>.filter-title").eq(1).children("span").eq(0).html("位置区域");
         }
+
+
     });
     $(".filter-item-bar>.filter-sort").on("click", "li", function (e) {
         if (!$(this).hasClass("active")) {
